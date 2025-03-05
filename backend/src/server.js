@@ -13,7 +13,7 @@ dotenv.config({
 connectDB()
 .then(() => {
     app.listen(port,() => {
-        console.log(` Server Is  Running at ${port}`);
+        console.log(` Server Is  Running at Port ${port}`);
     })
 })
 .catch((err)=>{

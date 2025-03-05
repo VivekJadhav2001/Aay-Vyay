@@ -1,18 +1,18 @@
 import { Router } from "express";
 import {
     registerUser, 
-    loginUser, 
-    getUserInfo,
+    // loginUser, 
+    // getUserInfo,
     
 } from '../controllers/user.controller.js'
 
 const router = Router()
 
-router.post('/login', loginUser)
+// router.post('/login', loginUser)
 
 //secured routes
 router.post('/register', registerUser)
-router.get('/getUser', protect, getUserInfo)
+// router.get('/getUser', protect, getUserInfo)
 
 
 
