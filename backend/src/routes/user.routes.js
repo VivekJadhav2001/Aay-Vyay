@@ -1,13 +1,14 @@
 import { Router } from "express";
 
 // import { upload } from '../middlewares/multer.middleware.js'
-
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 import {
     registerUser,
     loginUser, 
     logoutUser,
-    // getUserInfo,
+    refreshAccessToken,
+    getUserInfo,
 
 } from '../controllers/user.controller.js'
 
@@ -28,10 +29,12 @@ router.post('/login', loginUser)
 //     // ]),
 //     registerUser
 // )
-router.route("/logout").post(verifyJWT, logoutUser)
-router.route("/register").post(registerUser)
 
-// router.get('/getUser', protect, getUserInfo)
+router.route("/register").post(registerUser)
+router.route("/logout").post(verifyJWT, logoutUser) // verifyJWT middleware
+router.route("/refresh-token").post(verifyJWT, refreshAccessToken)
+
+router.route("/getUserInfo").get(verifyJWT, getUserInfo)
 
 
 
