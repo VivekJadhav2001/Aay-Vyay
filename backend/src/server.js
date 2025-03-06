@@ -23,10 +23,11 @@ connectDB()
 
 //routes import
 import userRouter from './routes/user.routes.js'
-
+import incomeRouter from './routes/income.routes.js'
 
 //routes declaration
 app.use("/api/v1/users",userRouter)
+app.use("/api/v1/income",incomeRouter)
 
 
 
