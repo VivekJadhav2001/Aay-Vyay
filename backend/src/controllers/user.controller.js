@@ -1,5 +1,5 @@
 import { asyncHandler } from '../utils/asyncHandler.js';
-// import { uploadOnCloudinary } from "../utils/cloudinary.js"
+import { uploadOnCloudinary } from "../utils/cloudinary.js"
 import { User } from '../models/User.model.js';
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
@@ -26,7 +26,7 @@ const generateAccessAndRefereshTokens = async (userId) => {
 
 const registerUser = asyncHandler(async (req, res) => {
 
-    const { fullName, email, password, profileImageUrl } = req.body
+    const { fullName, email, password } = req.body
 
 
     if (
@@ -52,6 +52,19 @@ const registerUser = asyncHandler(async (req, res) => {
     // if(!password){
     //     throw new ApiError(400, "Password is required")
     // }
+
+    const avatarLocalPath = req.files?.avatar[0]?.path;
+
+    if(!avatarLocalPath){
+        throw new ApiError(400, "Profile Picture file is required")
+    }
+
+    const avatar = await uploadOnCloudinary(avatarLocalPath)
+
+    // check for profilepic
+    if (!avatar) {
+        throw new ApiError(400, "avatar file is required")
+    }
     
     
 
@@ -64,7 +77,9 @@ const registerUser = asyncHandler(async (req, res) => {
         fullName,
         email,
         password,
-        profileImageUrl
+        // profileImageUrl,
+        avatar: avatar.url,
+
     })
 
     //******************************************************************************************** */
@@ -224,5 +239,5 @@ export {
     logoutUser,
     refreshAccessToken,
     getUserInfo,
-    
+
 }

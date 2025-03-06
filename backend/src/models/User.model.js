@@ -22,9 +22,9 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'password is required']
     },
-    profileImageUrl: {
+    avatar : {
         type: String,  // cloudinary url
-        default: null
+        // default: null
     },
     refreshToken: {
         type: String,

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-// import { upload } from '../middlewares/multer.middleware.js'
+import { upload } from '../middlewares/multer.middleware.js'
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 import {
@@ -18,19 +18,19 @@ router.post('/login', loginUser)
 
 //secured routes
 
-//multer middleware is used to upload files
-//upload.fields() is used to upload multiple files
-// router.route("/register").post(
-//     // upload.fields([
-//     //     {
-//     //         name: "profileImageUrl",
-//     //         maxCount: 1
-//     //     }
-//     // ]),
-//     registerUser
-// )
+// multer middleware is used to upload files
+// upload.fields() is used to upload multiple files
+router.route("/register").post(
+    upload.fields([
+        {
+            name: "avatar",
+            maxCount: 1
+        },
+    ]),
+    registerUser
+)
 
-router.route("/register").post(registerUser)
+// router.route("/register").post(registerUser)
 router.route("/logout").post(verifyJWT, logoutUser) // verifyJWT middleware
 router.route("/refresh-token").post(verifyJWT, refreshAccessToken)
 
