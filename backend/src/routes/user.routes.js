@@ -5,14 +5,15 @@ import { Router } from "express";
 
 import {
     registerUser,
-    // loginUser, 
+    loginUser, 
+    logoutUser,
     // getUserInfo,
 
 } from '../controllers/user.controller.js'
 
 const router = Router()
 
-// router.post('/login', loginUser)
+router.post('/login', loginUser)
 
 //secured routes
 
@@ -27,7 +28,7 @@ const router = Router()
 //     // ]),
 //     registerUser
 // )
-
+router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/register").post(registerUser)
 
 // router.get('/getUser', protect, getUserInfo)
