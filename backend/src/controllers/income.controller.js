@@ -41,7 +41,7 @@ const addIncome = asyncHandler(async(req, res) => {
 const getAllIncome = asyncHandler(async(req, res) => {
     const userId = req.user._id
 
-    const income = await Income.find({userId}).sort({date: -1});
+    const income = await Income.find({userId}).sort({date: -1}); // date: -1 sorting by date descending makes sense — it shows the latest income entries first.
 
     if(!income){
         throw new ApiError(404, "Income not found")
