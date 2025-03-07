@@ -4,7 +4,7 @@ import { getDashboardData } from '../controllers/dashboard.controller.js'
 
 const router = Router()
 
-router.route("/").post(verifyJWT, getDashboardData)
+router.route("/").get(verifyJWT, getDashboardData)
 
 
 export default  router
