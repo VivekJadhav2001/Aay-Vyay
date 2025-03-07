@@ -3,6 +3,9 @@ import { Income } from "../models/Income.model.js";
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 
+import { uploadOnCloudinary } from "../utils/cloudinary.js"
+import path from "path";
+// import fs from 'fs'
 import * as xlsx from 'xlsx';
 
 
@@ -85,7 +88,19 @@ const downloadIncomeExcel = asyncHandler(async(req, res) => {
     xlsx.utils.book_append_sheet(wb, ws, "Income");
     xlsx.writeFile(wb, "income_details.xlsx")
 
-    return res.download('income_details.xlsx', (err) => {
+    // Save the Excel file temporarily
+    const filePath = path.join(process.cwd(), "temp_income_details.xlsx");
+    xlsx.writeFile(wb, filePath);
+
+    
+    const excelIncomeFile = uploadOnCloudinary(filePath)
+
+    if(!excelIncomeFile){
+        throw new ApiError ("excelIncomeFile file is require")
+    }
+    const excelfileURL = excelIncomeFile.url
+
+    return res.download('income_details.xlsx',excelfileURL,  (err) => {
         if (err) {
             throw new ApiError(500, "Failed to download income file");
         }
