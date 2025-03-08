@@ -2,7 +2,9 @@ import React, { use, useState } from 'react'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../components/Inputs/input';
-import {validateEmail} from '../../utils/helper.js'
+import { validateEmail } from '../../utils/helper.js'
+import axiosInstance from '../../utils/axiosInstance.js';
+import { API_PATHS } from '../../utils/apiPaths.js';
 
 function Login() {
 
@@ -17,12 +19,12 @@ function Login() {
     e.preventDefault();
 
 
-    if(!validateEmail(email)){
+    if (!validateEmail(email)) {
       setError("Please enter a valid email address.")
       return
     }
 
-    if(!password){
+    if (!password) {
       setError("Please enter the password")
       return
     }
@@ -30,7 +32,33 @@ function Login() {
     setError("")
 
     //Login API Call
-   }
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.LOGIN, {
+        email,
+        password,
+      });
+
+      console.log("Login Response:", response.data); // Add this log
+
+      const { accessToken, refreshToken, user } = response.data.data;
+
+      if (refreshToken) {
+        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem("token", accessToken); // Store the accessToken too
+        navigate("/dashboard");
+      } else {
+        setError("Invalid login credentials. Please try again.");
+      }
+    } catch (error) {
+      console.log("Login Error:", error);
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong, Please try again");
+      }
+    }
+
+  }
 
 
   return (
@@ -41,7 +69,7 @@ function Login() {
           Please enter your email and password to login
         </p>
 
-        <form onSubmit={handleLogin} > 
+        <form onSubmit={handleLogin} >
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -65,7 +93,7 @@ function Login() {
           <p className='text-[13px] text-slate-800 mt-3'>
             Don't have an account?{" "}
             <Link className='font-medium text-primary underline' to='/signUp'>
-            SignUp
+              SignUp
             </Link>
           </p>
         </form>

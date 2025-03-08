@@ -7,11 +7,11 @@ import {
   Navigate,
 } from 'react-router-dom';
 
-import Login from './pages/Auth/Login';
-import SignUp from './pages/Auth/SignUp';
-import Home from './pages/Dashboard/Home';
-import Income from './pages/Dashboard/Income';
-import Expense from './pages/Dashboard/Expense';
+import Login from './pages/Auth/Login.jsx';
+import SignUp from './pages/Auth/SignUp.jsx';
+import Home from './pages/Dashboard/Home.jsx';
+import Income from './pages/Dashboard/Income.jsx';
+import Expense from './pages/Dashboard/Expense.jsx';
 
 
 function App() {

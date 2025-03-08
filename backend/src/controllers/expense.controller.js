@@ -7,7 +7,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js"
 import path from "path";
 import * as xlsx from 'xlsx';
 
-//Add income source
+//Add expense source
 const addExpense = asyncHandler(async (req, res) => {
     const userId = req.user._id;
 
@@ -33,7 +33,7 @@ const addExpense = asyncHandler(async (req, res) => {
     )
 })
 
-// get all income source
+// get all expense source
 const getAllExpense = asyncHandler(async (req, res) => {
 
     const userId = req.user._id
