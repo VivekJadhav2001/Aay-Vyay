@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../components/Inputs/input';
 import { validateEmail } from '../../utils/helper.js'
 import ProfilePhotoSelector from '../../components/Inputs/ProfilePhotoSelector.jsx';
+import axiosInstance from '../../utils/axiosInstance.js';
+import { API_PATHS } from '../../utils/apiPaths.js';
+import { UserContext } from '../../context/UserContext.jsx';
 
 function SignUp() {
 
@@ -14,12 +17,14 @@ function SignUp() {
 
   const [error, setError] = useState(null);
 
+   const {updateUser} = useContext(UserContext)
+
 
   const navigate = useNavigate()
 
   // Handle Sign up Form Submit
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault()
 
     let profileImageUrl = "";
@@ -42,6 +47,61 @@ function SignUp() {
 
 
     //SignUp API Call
+    try {
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+        fullName,
+        email,
+        password,
+      });
+  
+      console.log("Signup Response:", response.data);
+  
+      if (response.data.success) {
+        // alert("Registration successful! Please log in.");
+        navigate("/login"); // Navigate to login after successful registration 
+      } else {
+        setError("Registration failed. Please try again.");
+      }
+    } catch (error) {
+      console.log("Signup Error:", error);
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        setError("Something went wrong, Please try again");
+      }
+    }
+    // try {
+
+    //   // To Upload image if present
+    //   // if(profilePic){                                                 //Refer uploadImage.js file
+    //   //   const imgUploadRes = await uploadImage(profilePic);
+    //   //   profileImageUrl = imgUploadRes.imageUrl || "";
+    //   // }
+
+
+    //   const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
+    //     fullName,
+    //     email,
+    //     password,
+    //   });
+
+    //   const { refreshToken, user } = response.data.data;
+
+    //   if(refreshToken){
+    //     localStorage.setItem("refreshToken", refreshToken)
+    //     updateUser(user)
+    //     navigate("/dashboard");
+    //   }
+
+    // } catch (error) {
+    //   console.log("Login Error:", error);
+    //   if (error.response && error.response.data.message) {
+    //     setError(error.response.data.message);
+    //   } else {
+    //     setError("Something went wrong, Please try again");
+    //   }
+    // }
+
   }
 
   return (

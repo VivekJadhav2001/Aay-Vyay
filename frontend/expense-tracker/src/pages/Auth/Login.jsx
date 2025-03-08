@@ -1,16 +1,21 @@
-import React, { use, useState } from 'react'
+import React, { useState,useContext  } from 'react'
 import AuthLayout from '../../components/layouts/AuthLayout'
 import { Link, useNavigate } from 'react-router-dom'
 import Input from '../../components/Inputs/input';
 import { validateEmail } from '../../utils/helper.js'
 import axiosInstance from '../../utils/axiosInstance.js';
 import { API_PATHS } from '../../utils/apiPaths.js';
+import { UserContext } from '../../context/UserContext.jsx';
 
 function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
+  const {updateUser} = useContext(UserContext)
+  // console.log(updateUser);
+  
 
   const navigate = useNavigate()
 
@@ -40,11 +45,12 @@ function Login() {
 
       console.log("Login Response:", response.data); // Add this log
 
-      const { accessToken, refreshToken, user } = response.data.data;
+      const { refreshToken, user } = response.data.data;
 
       if (refreshToken) {
         localStorage.setItem("refreshToken", refreshToken);
-        localStorage.setItem("token", accessToken); // Store the accessToken too
+        updateUser(user)
+        // localStorage.setItem("accessToken", accessToken); // Store the accessToken too
         navigate("/dashboard");
       } else {
         setError("Invalid login credentials. Please try again.");

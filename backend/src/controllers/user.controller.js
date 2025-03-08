@@ -55,16 +55,16 @@ const registerUser = asyncHandler(async (req, res) => {
 
     const avatarLocalPath = req.files?.avatar[0]?.path;
 
-    if(!avatarLocalPath){
-        throw new ApiError(400, "Profile Picture file is required")
-    }
+    // if(!avatarLocalPath){
+    //     throw new ApiError(400, "Profile Picture file is required")
+    // }
 
-    const avatar = await uploadOnCloudinary(avatarLocalPath)
+    // const avatar = await uploadOnCloudinary(avatarLocalPath)                   //line 58 - 67 and line-81 this is causing problem because of the frontend image upload
 
-    // check for profilepic
-    if (!avatar) {
-        throw new ApiError(400, "avatar file is required")
-    }
+    // // check for profilepic
+    // if (!avatar) {
+    //     throw new ApiError(400, "avatar file is required")
+    // }
     
     
 
@@ -78,7 +78,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email,
         password,
         // profileImageUrl,
-        avatar: avatar.url,
+        // avatar: avatar.url,
 
     })
 
