@@ -45,12 +45,12 @@ function Login() {
 
       console.log("Login Response:", response.data); // Add this log
 
-      const { refreshToken, user } = response.data.data;
+      const { refreshToken, accessToken, user } = response.data.data;
 
       if (refreshToken) {
         localStorage.setItem("refreshToken", refreshToken);
         updateUser(user)
-        // localStorage.setItem("accessToken", accessToken); // Store the accessToken too
+        localStorage.setItem("accessToken", accessToken); // Store the accessToken too
         navigate("/dashboard");
       } else {
         setError("Invalid login credentials. Please try again.");
