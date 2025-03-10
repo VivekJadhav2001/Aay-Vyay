@@ -134,9 +134,9 @@ const getDashboardData = asyncHandler(async (req, res) => {
 
 
     //response
-    return res.status(500)
+    return res.status(200)
     .json(
-        new ApiResponse(500,total, "TotalBalance, TotalIncome,TotalExpense, last30DaysExpense, last60DaysIncome, recentTransaction are fetched successfully")
+        new ApiResponse(200,total, "TotalBalance, TotalIncome,TotalExpense, last30DaysExpense, last60DaysIncome, recentTransaction are fetched successfully")
     )
 })
 
