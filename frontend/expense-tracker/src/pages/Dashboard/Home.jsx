@@ -129,6 +129,7 @@ import RecentTransactions from '../../components/Dashboard/RecentTransactions.js
 import FinanceOverview from '../../components/Dashboard/FinanceOverview.jsx';
 import ExpenseTransactions from '../../components/Dashboard/ExpenseTransactions.jsx';
 import Last30DaysExpense from '../../components/Dashboard/Last30DaysExpense.jsx';
+import RecentIncomeWithChart from '../../components/Dashboard/RecentIncomeWithChart.jsx';
 
 function Home() {
     useUserAuth();
@@ -227,6 +228,11 @@ function Home() {
 
                         <Last30DaysExpense
                         data={dashboardData?.last30DaysExpense?.transaction || []}
+                        />
+
+                        <RecentIncomeWithChart
+                        data={dashboardData?.last60DaysIncome?.transaction?.slice(0,4) || []}
+                        totalIncome={dashboardData?.totalIncome || 0}
                         />
                     </div>
 
