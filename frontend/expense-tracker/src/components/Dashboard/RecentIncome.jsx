@@ -16,13 +16,13 @@ function RecentIncome({ transactions, onSeeMore }) {
 
 
             <div className="mt-6">
-            {transactions?.slice(0,5)?.map((income)=> (
+            {transactions?.slice(0,5)?.map((item)=> (
                 <TransactionInfoCard
-                key={income._id}
-                title={income.category}
-                icon={income.icon}
-                date={moment(income.date).format("Do MMM YYYY")}
-                amount={income.amount}
+                key={item._id}
+                title={item.category}
+                icon={item.icon}
+                date={moment(item.date).format("Do MMM YYYY")}
+                amount={item.amount}
                 type="income"
                 hideDeleteBtn
                 />

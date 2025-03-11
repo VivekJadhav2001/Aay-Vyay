@@ -164,7 +164,7 @@ function Home() {
 
 
             const data = await response.json();
-            console.log("Dashboard Data Response:", data);
+            // console.log("Dashboard Data Response:", data);
             setDashboardData(data.data);
 
         } catch (error) {
@@ -177,7 +177,7 @@ function Home() {
 
     useEffect(() => {
         fetchDashboardData();
-    }, []);
+    },[]);
 
     // console.log("Fetching from URL:", API_PATHS.DASHBOARD.GET_DATA);
 
