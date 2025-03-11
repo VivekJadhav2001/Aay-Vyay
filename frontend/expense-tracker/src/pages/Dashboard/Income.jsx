@@ -81,6 +81,10 @@ import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import IncomeOverview from '../../components/Income/IncomeOverview';
 import { API_PATHS } from '../../utils/apiPaths';
+import Modal from '../../components/Modal';
+import AddIncomeForm from '../../components/Income/AddIncomeForm';
+import axiosInstance from '../../utils/axiosInstance';
+import toast from 'react-hot-toast';
 
 function Income() {
     const [incomeData, setIncomeData] = useState([]);
@@ -126,7 +130,81 @@ function Income() {
             setLoading(false);
         }
     };
+    
+    //Handle Add Income
+    const handleAddIncome = async (income) => {
+        const {source, amount, date, icon} = income;
 
+        //Validation checks
+        if(!source.trim()){
+            toast.error("Source is Required.");
+            return;
+        }
+
+        if(!amount || isNaN(amount) || Number(amount) <=0){
+            toast.error("Amount should be a valid number greater than 0.");
+            return;
+        }
+        if(!date){
+            toast.error("Date is required")
+            return;
+        }
+
+        // try {
+        //     await axiosInstance.post(API_PATHS.INCOME.ADD_INCOME, {
+        //         source,
+        //         amount,
+        //         date,
+        //         icon
+        //     })
+
+        //     setOpenAddIncomeModal(false)
+        //     toast.success("Income added successfull")
+        //     fetchIncomeDetails();
+
+        // } catch (error) {
+        //     console.log("Something went wrong. Please try again later", error);
+        //     setError("Failed to Add Income.");
+        // } 
+
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+        
+            const response = await fetch(API_PATHS.INCOME.ADD_INCOME, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                },
+                body: JSON.stringify({
+                    source,
+                    amount,
+                    date,
+                    icon
+                })
+            });
+        
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
+            }
+        
+            setOpenAddIncomeModal(false);
+            toast.success("Income added successfully");
+            fetchIncomeDetails();
+            
+        } catch (error) {
+            console.log("Something went wrong. Please try again later", error);
+            setError("Failed to Add Income.");
+        }
+
+    }
+    
+    //DeleteIncome
+    const deleteIncome = async () => {}
+    
+    // handle download income details
+    const handleDownloadIncomeDetails = async () => {}
     useEffect(() => {
         fetchIncomeDetails();
     }, []); // <-- Added empty dependency array to run only on mount
@@ -144,6 +222,14 @@ function Income() {
                         />
                     </div>
                 </div>
+
+                <Modal
+                isOpen={openAddIncomeModal}
+                onClose={() => setOpenAddIncomeModal(false)}
+                title="Add Income"
+                >
+                <AddIncomeForm onAddIncome={handleAddIncome}/>
+                </Modal>
             </div>
         </DashboardLayout>
     );
@@ -162,12 +248,3 @@ export default Income;
 
 
 
-
-  // //Handle Add Income
-  // const handleAddIncome = async () => {}
-
-  // //DeleteIncome
-  // const deleteIncome = async () => {}
-
-  // // handle download income details
-  // const handleDownloadIncomeDetails = async () => {}
