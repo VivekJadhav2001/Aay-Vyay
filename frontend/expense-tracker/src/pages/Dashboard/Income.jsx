@@ -243,8 +243,8 @@ function Income() {
     return (
         <DashboardLayout activeMenu="Income">
             <div className="my-5 mx-auto px-4">
-            {/* {loading && <p>Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>} */}
+            {loading && <p>Loading...</p>}
+            {error && <p className="text-red-500">{error}</p>}
                 <div className="grid grid-cols-1 gap-6">
                     <div className="">
                         <IncomeOverview

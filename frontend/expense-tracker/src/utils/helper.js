@@ -31,13 +31,24 @@ export const addThousandsSeperator = (num) => {
 }
 
 export const prepareExpenseBarChartData = (data = []) => {
-    const chartData = data.map((item) => ({
-        category:item?.category,
+    const sortedData = [...data].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    const chartData = sortedData.map((item) => ({
+        month: moment(item?.date).format("Do MMM"), // Example: "10th Jan"
         amount: item?.amount,
+        category: item?.category, // Assuming you track categories for expenses
     }));
 
-    return chartData
-}
+    return chartData;
+};
+// export const prepareExpenseBarChartData = (data = []) => {
+//     const chartData = data.map((item) => ({
+//         category:item?.category,
+//         amount: item?.amount,
+//     }));
+
+//     return chartData
+// }
 
 // export const prepareIncomeBarChartData = (data = []) => {
 //     const sortedData = [...data].sort[(a,b) => new Date(a.date) - new Date(b.date)]

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function CustomTooltip({active, payload}) {
+function CustomToolTip({active, payload}) {
     if(active && payload && payload.length){
         return (
             <div className="bg-white shadow-md rounded-lg p-2 border border-gray-300 ">
@@ -14,4 +14,4 @@ function CustomTooltip({active, payload}) {
   return null;
 };
 
-export default CustomTooltip
+export default CustomToolTip

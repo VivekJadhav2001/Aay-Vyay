@@ -46,7 +46,7 @@ const getAllExpense = asyncHandler(async (req, res) => {
         return res
         .status(200)
         .json(
-            new ApiResponse(200, expense, "Fetched all Income sources")
+            new ApiResponse(200, expense, "Fetched all Expense sources")
         )
 })
 

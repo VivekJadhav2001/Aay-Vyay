@@ -7,7 +7,7 @@ import {
     ResponsiveContainer,
     Legend
 } from 'recharts'
-import CustomTooltip from './CustomTooltip'
+import CustomTooltip from './CustomToolTip'
 import CustomLegend from './CustomLegend'
 
 
