@@ -56,7 +56,7 @@ const getDashboardData = asyncHandler(async (req, res) => {
     const last60DaysIncomeTransaction = await Income.find({
         userId,
         date: {
-            $gte: getStartOfDay(new Date(Date.now() - 60 * 24 * 60 * 1000))
+            $gte: getStartOfDay(new Date(Date.now() - 60 * 24 * 60 * 60 * 1000))
         },
     }).sort({date: -1})
     

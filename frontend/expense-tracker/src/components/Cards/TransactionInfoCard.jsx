@@ -1,8 +1,8 @@
 import React from 'react'
-import { LuTrash, LuTrendingDown, LuTrendingUp, LuUtensils } from 'react-icons/lu'
+import { LuTrash2, LuTrendingDown, LuTrendingUp, LuUtensils } from 'react-icons/lu'
 
 function TransactionInfoCard(
-    { title, icon, date, amount, type, hideDeleteBtn}
+    { title, icon, date, amount, type, hideDeleteBtn, onDelete}
 ) {
 
     const getAmountStyles = () => 
@@ -29,7 +29,7 @@ function TransactionInfoCard(
                     <button className='text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer'
                     onClick={onDelete}
                     >
-                        <LuTrash size={18}/>
+                        <LuTrash2 size={18}/>
                     </button>
                 )}
 
