@@ -115,7 +115,7 @@ function Expense() {
      const deleteExpense = async (id) => {
         try {
             const accessToken = localStorage.getItem('accessToken');
-        
+            
             const response = await fetch(API_PATHS.EXPENSE.DELETE_EXPENSE(id), {
                 method: 'DELETE',
                 headers: {
@@ -123,21 +123,21 @@ function Expense() {
                     'Authorization': `Bearer ${accessToken}`
                 }
             });
-        
+    
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
             }
-        
+    
             setOpenDeleteAlert({ show: false, data: null });
             toast.success("Expense details deleted successfully");
             fetchExpenseDetails();
             
         } catch (error) {
-            console.log("Error deleting Expense:", error.message || "Unknown error");
+            console.log("Error deleting expense:", error.message || "Unknown error");
         }
-        
-    }
+    };
+    
 
     // handle download expense details
     const handleDownloadExpenseDetails = async () => {}
@@ -168,13 +168,6 @@ function Expense() {
                     onDownload={handleDownloadExpenseDetails}
                     />
 
-                    {/* <IncomeList
-                    transactions={incomeData}
-                    onDelete={(id) => {
-                        setOpenDeleteAlert({show: true, data: id})
-                    }}
-                    onDownload={handleDownloadIncomeDetails}
-                    /> */}
                 </div>
                 <Modal
                 isOpen={openAddExpenseModal}
