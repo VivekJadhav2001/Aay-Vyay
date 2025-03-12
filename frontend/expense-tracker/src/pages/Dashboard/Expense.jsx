@@ -4,6 +4,10 @@ import toast from 'react-hot-toast';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import { API_PATHS } from '../../utils/apiPaths';
 import ExpenseOverview from '../../components/Expense/ExpenseOverview';
+import Modal from '../../components/Modal';
+import AddExpenseForm from '../../components/Expense/AddExpenseForm';
+import ExpenseList from '../../components/Expense/ExpenseList';
+import DeleteAlert from '../../components/DeleteAlert';
 
 function Expense() {
 
@@ -107,6 +111,37 @@ function Expense() {
 
     }
 
+     //DeleteExpense
+     const deleteExpense = async (id) => {
+        try {
+            const accessToken = localStorage.getItem('accessToken');
+        
+            const response = await fetch(API_PATHS.EXPENSE.DELETE_EXPENSE(id), {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+        
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`HTTP error! Status: ${response.status}, Message: ${errorText}`);
+            }
+        
+            setOpenDeleteAlert({ show: false, data: null });
+            toast.success("Expense details deleted successfully");
+            fetchExpenseDetails();
+            
+        } catch (error) {
+            console.log("Error deleting Expense:", error.message || "Unknown error");
+        }
+        
+    }
+
+    // handle download expense details
+    const handleDownloadExpenseDetails = async () => {}
+
     useEffect(() => {
       fetchExpenseDetails();
         }, []);
@@ -125,6 +160,14 @@ function Expense() {
                         />
                     </div>
 
+                    <ExpenseList
+                    transactions={expenseData}
+                    onDelete={(id) => {
+                        setOpenDeleteAlert({show: true, data: id})
+                    }}
+                    onDownload={handleDownloadExpenseDetails}
+                    />
+
                     {/* <IncomeList
                     transactions={incomeData}
                     onDelete={(id) => {
@@ -133,6 +176,24 @@ function Expense() {
                     onDownload={handleDownloadIncomeDetails}
                     /> */}
                 </div>
+                <Modal
+                isOpen={openAddExpenseModal}
+                onClose={() => setOpenAddExpenseModal(false)}
+                title="Add Expense"
+                >
+                <AddExpenseForm onAddExpense={handleAddExpense}/>
+                </Modal>
+
+                <Modal
+                isOpen={openDeleteAlert.show}
+                onClose={() => setOpenDeleteAlert({show: false, data: null})}
+                title="Delete Expense"
+                >
+                    <DeleteAlert
+                    content="Are you sure you want to delete this Expense details"
+                    onDelete={()=> deleteExpense(openDeleteAlert.data)}
+                    />
+                </Modal>
       </div>
     </DashboardLayout>
   )
