@@ -67,7 +67,7 @@ const getDashboardData = asyncHandler(async (req, res) => {
     const last30DaysExpenseTransaction = await Expense.find({
         userId,
         date: {
-            $gte: new Date(Date.now() - 30 * 24 * 60 * 1000)
+            $gte: new Date(Date.now() -  30 * 24 * 60 * 60 * 1000)
         },
     }).sort({date: -1})
 
