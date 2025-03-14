@@ -176,7 +176,7 @@ function Income() {
         try {
             const accessToken = localStorage.getItem('accessToken');
         
-            const response = await fetch(API_PATHS.INCOME.ADD_INCOME, {
+            const response = await fetch(`${BASE_URL}${API_PATHS.INCOME.ADD_INCOME}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -211,7 +211,7 @@ function Income() {
         try {
             const accessToken = localStorage.getItem('accessToken');
         
-            const response = await fetch(API_PATHS.INCOME.DELETE_INCOME(id), {
+            const response = await fetch(`${BASE_URL}${API_PATHS.INCOME.DELETE_INCOME(id)}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

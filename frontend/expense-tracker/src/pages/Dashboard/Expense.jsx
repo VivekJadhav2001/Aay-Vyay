@@ -81,7 +81,7 @@ function Expense() {
         try {
             const accessToken = localStorage.getItem('accessToken');
         
-            const response = await fetch(API_PATHS.EXPENSE.ADD_EXPENSE, {
+            const response = await fetch(`${BASE_URL}${API_PATHS.EXPENSE.ADD_EXPENSE}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ function Expense() {
         try {
             const accessToken = localStorage.getItem('accessToken');
             
-            const response = await fetch(API_PATHS.EXPENSE.DELETE_EXPENSE(id), {
+            const response = await fetch(`${BASE_URL}${API_PATHS.EXPENSE.DELETE_EXPENSE(id)}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
