@@ -43,7 +43,7 @@ function Login() {
         password,
       });
 
-      console.log("Login Response:", response.data); // Add this log
+      // console.log("Login Response:", response.data); // Add this log
 
       const { refreshToken, accessToken, user } = response.data.data;
 
@@ -56,7 +56,7 @@ function Login() {
         setError("Invalid login credentials. Please try again.");
       }
     } catch (error) {
-      console.log("Login Error:", error);
+      // console.log("Login Error:", error);
       if (error.response && error.response.data.message) {
         setError(error.response.data.message);
       } else {

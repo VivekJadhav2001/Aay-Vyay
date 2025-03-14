@@ -126,7 +126,7 @@ function Income() {
             }
 
             const data = await response.json();
-            console.log("Get All Income Data Response:", data);
+            // console.log("Get All Income Data Response:", data);
             setIncomeData(data.data);
 
         } catch (error) {

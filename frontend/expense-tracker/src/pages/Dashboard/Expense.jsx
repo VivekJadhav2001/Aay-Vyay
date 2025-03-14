@@ -47,11 +47,11 @@ function Expense() {
             }
 
             const data = await response.json();
-            console.log("Get All Expense Data Response:", data);
+            // console.log("Get All Expense Data Response:", data);
             setExpenseData(data.data);
 
         } catch (error) {
-            console.log("Something went wrong. Please try again later", error);
+            // console.log("Something went wrong. Please try again later", error);
             setError("Failed to load Expense data");
         } finally {
             setLoading(false);
@@ -105,7 +105,7 @@ function Expense() {
             fetchExpenseDetails();
             
         } catch (error) {
-            console.log("Something went wrong. Please try again later", error);
+            // console.log("Something went wrong. Please try again later", error);
             setError("Failed to Add Expense.");
         }
 

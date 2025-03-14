@@ -54,7 +54,7 @@ function SignUp() {
         password,
       });
   
-      console.log("Signup Response:", response.data);
+      // console.log("Signup Response:", response.data);
   
       if (response.data.success) {
         // alert("Registration successful! Please log in.");
@@ -63,7 +63,7 @@ function SignUp() {
         setError("Registration failed. Please try again.");
       }
     } catch (error) {
-      console.log("Signup Error:", error);
+      // console.log("Signup Error:", error);
       if (error.response && error.response.data.message) {
         setError(error.response.data.message);
       } else {
