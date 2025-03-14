@@ -10,7 +10,7 @@ import {
     ResponsiveContainer,
     Cell,
 } from 'recharts'
-import CustomToolTip from './CustomToolTip'
+import CustomToolTip from './CustomTooltip.jsx'
 
 function CustomBarChart({data}) {
 

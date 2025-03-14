@@ -8,7 +8,7 @@ import {
     Area,
     AreaChart
 } from 'recharts'
-import CustomToolTip from './CustomToolTip'
+import CustomToolTip from './CustomTooltip.jsx'
 
 
 function CustomLineChart({ data }) {
