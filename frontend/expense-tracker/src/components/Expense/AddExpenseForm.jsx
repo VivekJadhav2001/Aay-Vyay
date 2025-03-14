@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Input from '../Inputs/input'
+import Input from '../Inputs/Input.jsx'
 import EmojiPickerPopup from '../EmojiPickerPopup'
 
 
