@@ -119,7 +119,7 @@ import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../components/layouts/DashboardLayout.jsx';
 import { useUserAuth } from '../../hooks/useUserAuth.jsx';
 import { useNavigate } from 'react-router-dom';
-import { API_PATHS } from '../../utils/apiPaths.js';
+import { API_PATHS, BASE_URL } from '../../utils/apiPaths.js';
 import { InfoCard } from '../../components/Cards/InfoCard.jsx';
 
 import { LuHandCoins, LuWalletMinimal } from 'react-icons/lu';
@@ -149,7 +149,7 @@ function Home() {
 
         try {
             const accessToken = localStorage.getItem('accessToken');
-            const response = await fetch(`${API_PATHS.DASHBOARD.GET_DATA}`, {
+            const response = await fetch(`${BASE_URL}${API_PATHS.DASHBOARD.GET_DATA}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
