@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useUserAuth } from '../../hooks/useUserAuth';
 import toast from 'react-hot-toast';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
-import { API_PATHS } from '../../utils/apiPaths';
+import { API_PATHS, BASE_URL } from '../../utils/apiPaths';
 import ExpenseOverview from '../../components/Expense/ExpenseOverview';
 import Modal from '../../components/Modal';
 import AddExpenseForm from '../../components/Expense/AddExpenseForm';
@@ -33,7 +33,7 @@ function Expense() {
 
         try {
             const accessToken = localStorage.getItem('accessToken');
-            const response = await fetch(`${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`, {
+            const response = await fetch(`${BASE_URL}${API_PATHS.EXPENSE.GET_ALL_EXPENSE}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

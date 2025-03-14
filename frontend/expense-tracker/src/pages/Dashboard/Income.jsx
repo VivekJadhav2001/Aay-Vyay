@@ -80,7 +80,7 @@
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import IncomeOverview from '../../components/Income/IncomeOverview';
-import { API_PATHS } from '../../utils/apiPaths';
+import { API_PATHS, BASE_URL } from '../../utils/apiPaths';
 import Modal from '../../components/Modal';
 import AddIncomeForm from '../../components/Income/AddIncomeForm';
 import axiosInstance from '../../utils/axiosInstance';
@@ -176,7 +176,7 @@ function Income() {
         try {
             const accessToken = localStorage.getItem('accessToken');
         
-            const response = await fetch(API_PATHS.INCOME.ADD_INCOME, {
+            const response = await fetch(`${BASE_URL}${API_PATHS.INCOME.ADD_INCOME}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
